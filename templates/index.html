@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>To-do List App</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1>My Tasks</h1>
+    <form action="/" method="POST">
+        <input type="text" name="content" id="content" placeholder="Enter task" class="input_pl">
+        <input type="submit" name="btn_add" id="btn_add" value="Add Task">
+    </form>
+    {% if tasks | length < 1 %}
+    <h4> There is no tasks... Create here</h4>
+  
+    {% else %}
+    
+        <table >
+            <tr>
+                <th>Tasks</th>
+                <th>Added</th>
+                <th>Action</th>
+            </tr>
+            {% for task in tasks %}
+                <tr>
+                        <td>{{ task.content }}</td>
+                        <td>{{ task.created.strftime("%y-%m-%d") }}</td>
+                        <td>
+                            <a href="/delete/{{ task.id }}" class="del">Delete</a>
+                           
+                            <a href="/edit/{{ task.id }}">Update</a>
+                        </td>
+                </tr>
+            {% endfor %} 
+        </table>
+        {% endif %}
+       
+   </div>
+{% endblock %}
